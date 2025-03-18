@@ -44,7 +44,6 @@ Erstelle eine `.env`-Datei im Projektverzeichnis mit API-Schlüsseln:
 
 ```
 OPENAI_API_KEY=dein-openai-api-key-hier
-ANTHROPIC_API_KEY=dein-anthropic-api-key-hier  # Optional
 ```
 
 ## 📚 Indexierung von Code
