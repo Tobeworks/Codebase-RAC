@@ -21,7 +21,7 @@ DEFAULT_COLLECTION_NAME = "code_collection"
 DEFAULT_PERSIST_DIR = "/Users/tobe/Sites/python/langchain_chroma/chroma_db"
 
 # Default file extensions to index (comma-separated)
-DEFAULT_FILE_EXTENSIONS = ".py,.js,.html,.css,.vue,.jsx,.tsx,.md,.txt"
+DEFAULT_FILE_EXTENSIONS = ".py,.js,.html,.css,.vue,.jsx,.tsx,.md,.txt,.astro"
 
 # Default chunk size for text splitting
 DEFAULT_CHUNK_SIZE = 1000
@@ -192,7 +192,6 @@ def main():
     print("2. Configure Anything LLM:")
     print("   - Server: http://localhost:8000")
     print(f"   - Collection: {args.collection}")
-    print("   - IMPORTANT: Use OpenAI for embeddings")
 
 if __name__ == "__main__":
     main()
