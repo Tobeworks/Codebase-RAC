@@ -1,148 +1,148 @@
-# Code-RAG: Chroma-Vektordatenbank mit Anything LLM
+# Code-RAG: Chroma Vector Database with Anything LLM
 
-Dieses Repository enthält Anleitungen zur Erstellung eines Code-Retrieval-Augmented-Generation (RAG) Systems mit Chroma und Anything LLM.
+This repository contains instructions for creating a Code Retrieval-Augmented Generation (RAG) system with Chroma DB and Anything LLM.
 
-## 📋 Inhaltsverzeichnis
+## 📋 Table of Contents
 
-- [Überblick](#überblick)
+- [Overview](#overview)
 - [Installation](#installation)
-- [Indexierung von Code](#indexierung-von-code)
-- [Starten des Chroma-Servers](#starten-des-chroma-servers)
-- [Einrichtung von Anything LLM](#einrichtung-von-anything-llm)
-- [Fehlerbehebung](#fehlerbehebung)
+- [Code Indexing](#code-indexing)
+- [Starting the Chroma Server](#starting-the-chroma-server)
+- [Setting Up Anything LLM](#setting-up-anything-llm)
+- [Troubleshooting](#troubleshooting)
 
-## 🔍 Überblick
+## 🔍 Overview
 
-Dieses System ermöglicht es, eigene Codebasen zu indexieren und mit Hilfe von LLMs (Large Language Models) intelligente Anfragen dazu zu stellen. Die wichtigsten Komponenten sind:
+This system enables indexing of your own codebases and making intelligent queries using LLMs (Large Language Models). The key components are:
 
-1. **Chroma**: Eine Vektordatenbank zur Speicherung von Code-Embeddings
-2. **Anything LLM**: Eine benutzerfreundliche Chat-Oberfläche zum Abfragen der Codebasen
-3. **LangChain**: Framework zur Integration von Vektordatenbanken mit LLMs
+1. **Chroma**: A vector database for storing code embeddings
+2. **Anything LLM**: A user-friendly chat interface for querying codebases
+3. **LangChain**: Framework for integrating vector databases with LLMs
 
 ## 🛠️ Installation
 
-### Voraussetzungen
+### Prerequisites
 
-- Python 3.8+ und pip
-- OpenAI API-Schlüssel (für Embeddings und optional auch für das LLM)
-- Optional: Anthropic API-Schlüssel (für Claude-Modelle)
+- Python 3.8+ and pip
+- OpenAI API key (for embeddings and optionally for the LLM)
+- Optional: Anthropic API key (for Claude models)
 
-### Pakete installieren
+### Install Packages
 
 ```bash
-# Erstelle eine virtuelle Umgebung (empfohlen)
+# Create a virtual environment (recommended)
 python -m venv venv
-source venv/bin/activate  # Unter Windows: venv\Scripts\activate
+source venv/bin/activate  # On Windows: venv\Scripts\activate
 
-# Installiere die benötigten Pakete
+# Install required packages
 pip install chromadb langchain langchain-community langchain-openai python-dotenv
 ```
 
-### .env-Datei erstellen
+### Create .env File
 
-Erstelle eine `.env`-Datei im Projektverzeichnis mit API-Schlüsseln:
+Create a `.env` file in the project directory with API keys:
 
 ```
-OPENAI_API_KEY=dein-openai-api-key-hier
+OPENAI_API_KEY=your-openai-api-key-here
 ```
 
-## 📚 Indexierung von Code
+## 📚 Code Indexing
 
-Verwende das `chroma_indexer.py`-Skript, um deine Codebasen zu indexieren. Die wichtigsten Optionen:
+Use the `chroma_indexer.py` script to index your codebases. Key options:
 
-### Neue Codebase indexieren
+### Index a New Codebase
 
 ```bash
-python chroma_indexer.py --path /pfad/zu/deiner/codebase --collection meine_collection
+python chroma_indexer.py --path /path/to/your/codebase --collection my_collection
 ```
 
-### Weitere Codebase zur selben Collection hinzufügen
+### Add Another Codebase to the Same Collection
 
 ```bash
-python chroma_indexer.py --path /pfad/zu/weiterer/codebase --collection meine_collection --add
+python chroma_indexer.py --path /path/to/another/codebase --collection my_collection --add
 ```
 
-### Anpassung der zu indexierenden Dateitypen
+### Customize Indexed File Types
 
 ```bash
-python chroma_indexer.py --path /pfad/zur/codebase --collection meine_collection --extensions .py,.js,.html,.ts,.jsx
+python chroma_indexer.py --path /path/to/codebase --collection my_collection --extensions .py,.js,.html,.ts,.jsx
 ```
 
-### Anpassung des Speicherorts der Datenbank
+### Customize Database Storage Location
 
 ```bash
-python chroma_indexer.py --path /pfad/zur/codebase --collection meine_collection --persist-dir /pfad/zur/chroma_db
+python chroma_indexer.py --path /path/to/codebase --collection my_collection --persist-dir /path/to/chroma_db
 ```
 
-## 🖥️ Starten des Chroma-Servers
+## 🖥️ Starting the Chroma Server
 
-Nach der Indexierung musst du den Chroma-Server starten, um auf die Vektordatenbank zugreifen zu können:
+After indexing, you need to start the Chroma server to access the vector database:
 
 ```bash
-chroma run --path /pfad/zur/chroma_db --host 0.0.0.0 --port 8000
+chroma run --path /path/to/chroma_db --host 0.0.0.0 --port 8000
 ```
 
-Der Server ist dann unter http://localhost:8000 erreichbar.
+The server will then be accessible at http://localhost:8000.
 
-## 🤖 Einrichtung von Anything LLM
+## 🤖 Setting Up Anything LLM
 
-[Anything LLM](https://anythingllm.com/) ist eine benutzerfreundliche Chat-Oberfläche, die mit deinem Chroma-Index arbeiten kann.
+[Anything LLM](https://anythingllm.com/) is a user-friendly chat interface that can work with your Chroma index.
 
-### Installation von Anything LLM
+### Installing Anything LLM
 
-1. Lade Anything LLM von https://anythingllm.com/ herunter
-2. Installiere es gemäß der Anleitung
-3. Starte Anything LLM
+1. Download Anything LLM from https://anythingllm.com/
+2. Install it according to the instructions
+3. Start Anything LLM
 
-### Konfiguration von Anything LLM
+### Configuring Anything LLM
 
-1. Öffne Anything LLM
-2. Erstelle einen neuen Workspace oder wähle einen bestehenden
-3. Navigiere zu den Workspace-Einstellungen
+1. Open Anything LLM
+2. Create a new workspace or select an existing one
+3. Navigate to workspace settings
 
-4. Konfiguriere die Vektordatenbank:
-   - Wähle "Chroma" als Vektordatenbank-Typ
-   - Server URL: zB `http://localhost:8000`
-   - **SEHR WICHTIG**: Collection Name: Der Name deiner Collection (z.B. `meine_collection`) muss IMMER genauso heißen wie der Arbeitsbereich in Anything!
+4. Configure the vector database:
+   - Select "Chroma" as the vector database type
+   - Server URL: e.g., `http://localhost:8000`
+   - **VERY IMPORTANT**: Collection Name: Your collection name (e.g., `my_collection`) MUST ALWAYS be the SAME as the workspace name in Anything!
 
-5. Konfiguriere den Embedding-Provider:
-   - Wähle "OpenAI" als Embedding-Provider
-   - Gib deinen OpenAI API-Schlüssel ein
-   - **WICHTIG**: Verwende **denselben** Embedding-Provider wie bei der Indexierung!
+5. Configure the Embedding Provider:
+   - Select "OpenAI" as the embedding provider
+   - Enter your OpenAI API key
+   - **IMPORTANT**: Use the **SAME** embedding provider as during indexing!
 
-6. Konfiguriere das LLM:
-   - Wähle einen LLM-Provider (OpenAI, Anthropic, etc.)
-   - Wähle ein Modell (GPT-4, Claude 3, etc.)
-   - Gib den entsprechenden API-Schlüssel ein
+6. Configure the LLM:
+   - Choose an LLM provider (OpenAI, Anthropic, etc.)
+   - Select a model (GPT-4, Claude 3, etc.)
+   - Enter the corresponding API key
 
-7. Speichere die Einstellungen
+7. Save the settings
 
-## ❓ Fehlerbehebung
+## ❓ Troubleshooting
 
-### Collection nicht gefunden
+### Collection Not Found
 
-Wenn die Fehlermeldung "Collection XYZ does not exist" erscheint:
+If you receive a "Collection XYZ does not exist" error:
 
-1. Überprüfe die verfügbaren Collections:
+1. Check available collections:
    ```python
    import chromadb
    client = chromadb.HttpClient(host="localhost", port=8000)
    print(client.list_collections())
    ```
 
-2. Stelle sicher, dass der Collection-Name in Anything LLM exakt mit dem tatsächlichen Collection-Namen übereinstimmt (Groß-/Kleinschreibung beachten)
+2. Ensure the collection name in Anything LLM exactly matches the actual collection name (mind uppercase/lowercase)
 
-3. Überprüfe ob der Arbeitsbereich genauso heißt wie deine Collection. Anders kann Aynthing LLM nicht auf deinen Collection zugreifen.
+3. Verify that the workspace name is exactly the same as your collection. Otherwise, Anything LLM cannot access your collection.
 
-### Dimensionsfehler bei Embeddings
+### Embedding Dimension Error
 
-Wenn Fehler mit "Embedding dimension X does not match collection dimensionality Y" auftreten:
+If errors occur with "Embedding dimension X does not match collection dimensionality Y":
 
-1. Stelle sicher, dass du in Anything LLM denselben Embedding-Provider verwendest wie bei der Indexierung (hier OpenAI)
-2. Überprüfe, ob das korrekte Embedding-Modell ausgewählt ist (OpenAI verwendet 1536 Dimensionen)
+1. Ensure you use the same embedding provider in Anything LLM as during indexing (here OpenAI)
+2. Check that the correct embedding model is selected (OpenAI uses 1536 dimensions)
 
-### Andere Probleme
+### Other Issues
 
-- Stelle sicher, dass der Chroma-Server läuft und erreichbar ist und keien Consolen Fehler wirft
-- Überprüfe, ob die API-Schlüssel korrekt und gültig sind
-- Bei Problemen mit bestehenden Collections, erstelle gegebenenfalls eine neue Collection
+- Ensure the Chroma server is running and accessible with no console errors
+- Verify that API keys are correct and valid
+- For problems with existing collections, create a new collection if necessary
